@@ -8,7 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.ShootCommand;
 
 /** Hte Falcon that runs the shooter wheel {@link TalonFX}. */
 public class Shooter extends SubsystemBase 

@@ -5,6 +5,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -13,6 +14,7 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase 
 {
   private final  WPI_TalonFX _shooter =  new  WPI_TalonFX(Constants.SHOOTER_MOTOR);
+  private final  WPI_VictorSPX _transfer_roller =  new  WPI_VictorSPX(Constants.TRANSFER_ROLLER_MOTOR);
 
   public void shooter_init() 
   {
@@ -23,12 +25,14 @@ public class Shooter extends SubsystemBase
     _shooter.config_kI(0, Constants.SHOOTER_I, 30);
     _shooter.config_kD(0, Constants.SHOOTER_D, 30);
     _shooter.setSensorPhase(true);
+    _shooter.setStatusFramePeriod(1, 20);
   }
 
   /* Grabs the hatch. */
   public void shooter_on() 
   {
     _shooter.set(ControlMode.Velocity,Constants.SPEED);
+    _transfer_roller.set(ControlMode.PercentOutput,0.5);
     //_shooter.set(ControlMode.Velocity,11000);
 
   }
@@ -47,5 +51,7 @@ public class Shooter extends SubsystemBase
   public void shooter_off() 
   {
     _shooter.set(ControlMode.PercentOutput, 0);
+    _transfer_roller.set(ControlMode.PercentOutput,0);
+
   }
 }

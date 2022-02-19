@@ -13,6 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    
     /**
      * The left-to-right distance between the drivetrain wheels
      *
@@ -28,34 +29,37 @@ public final class Constants {
 
     //public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
 
-    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 33; //  Set front left module drive motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 43; //  Set front left module steer motor ID
-    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 0; // FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set front left steer offset
+    public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 32; //  Set front left module drive motor ID
+    public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 42; //  Set front left module steer motor ID
+    public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 12; // FIXME Set front left steer encoder ID
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(345.76); // FIXME Measure and set front left steer offset
 
-    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 32; //  Set front right drive motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 42; //  Set front right steer motor ID
-    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 0; // FIXME Set front right steer encoder ID
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set front right steer offset
+    public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 34; //  Set front right drive motor ID
+    public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 44; //  Set front right steer motor ID
+    public static final int FRONT_RIGHT_MODULE_STEER_ENCODER = 14; // FIXME Set front right steer encoder ID
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(118.82); // FIXME Measure and set front right steer offset
 
-    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 31; //  Set back left drive motor ID
-    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 41; //  Set back left steer motor ID
-    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 0; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set back left steer offset
+    public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 33;//  Set back left drive motor ID
+    public static final int BACK_LEFT_MODULE_STEER_MOTOR = 43; //  Set back left steer motor ID
+    public static final int BACK_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set back left steer encoder ID
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(162.94); // FIXME Measure and set back left steer offset
 
-    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 34; //  Set back right drive motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 44; //  Set back right steer motor ID
-    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 0; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(0.0); // FIXME Measure and set back right steer offset
+    public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 31; //  Set back right drive motor ID
+    public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41; //  Set back right steer motor ID
+    public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 11; // FIXME Set back right steer encoder ID
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(335.30); // FIXME Measure and set back right steer offset
 
     ///////51/////////////
+    public static final int HANGAR_MASTER_MOTOR = 5; //  Set front left module drive motor ID
+    public static final int HANGAR_FOLLOWER_MOTOR = 6; //  Set front left module drive motor ID
+    public static final int TRANSFER_ROLLER_MOTOR = 7;
     public static final int SHOOTER_MOTOR = 12; //  Set front left module drive motor ID
-    public static final double SHOOTER_P = 0.08; //  Set front left module drive motor ID
+    public static final double SHOOTER_P = 0.08; //  Set front lefAt module drive motor ID
     public static final double SHOOTER_I = 0.0; //  Set front left module drive motor ID
     public static final double SHOOTER_D = 0.00; //  Set front left module drive motor ID
     public static final double SHOOTER_F= 0.045; //  Set front left module drive motor ID
 
     public static  double SPEED= 0.0; //  Set front left module drive motor ID
-
+    public static  double HANGAR_SPEED= 0.75;
 
 }

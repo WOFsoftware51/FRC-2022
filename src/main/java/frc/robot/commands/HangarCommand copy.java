@@ -8,18 +8,16 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hangar;
 
 
-public class HangarCommand extends CommandBase 
-{
+public class HangarCommand extends CommandBase {
   /** Creates a new HangarCommand. */
   private final Hangar m_hangar;
   private final DoubleSupplier m_translationXSupplier;
-
   public HangarCommand(Hangar hangar,DoubleSupplier translationXSupplier)
+
   {
       this.m_hangar = hangar;
       addRequirements(hangar);
       this.m_translationXSupplier = translationXSupplier;
-      //hangar.dos_limitSwitch.get();
 
   }
 

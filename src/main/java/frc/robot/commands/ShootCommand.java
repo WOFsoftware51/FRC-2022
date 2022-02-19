@@ -10,7 +10,8 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Shooter  ;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
-public class ShootCommand extends CommandBase {
+public class ShootCommand extends CommandBase 
+{
   /** Creates a new ShootCommand. */
  
    public static double speedAdd;

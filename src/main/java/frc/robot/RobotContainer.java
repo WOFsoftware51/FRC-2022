@@ -15,9 +15,11 @@ import frc.robot.commands.Hangar_Abort_Command;
 import frc.robot.commands.Hangar_Ready_Command;
 import frc.robot.commands.Hangar_Release_Command;
 import frc.robot.commands.Hangar_Traverse_Command;
+import frc.robot.commands.Intake_Command;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 
@@ -27,6 +29,7 @@ public class RobotContainer
   private final DrivetrainSubsystem m_drivetrainSubsystem = new DrivetrainSubsystem();
   private final Shooter m_shooter = new Shooter();
   private final Hangar m_hangar = new Hangar();
+  private final Intake m_intake = new Intake();
 
   private final XboxController m_controller = new XboxController(0);
   private final XboxController m_controller2 = new XboxController(1);
@@ -67,6 +70,8 @@ public class RobotContainer
     new Button(m_controller2::getYButton).whenPressed(new Hangar_Traverse_Command(m_hangar), true);
     new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_Command(m_hangar), true);
     new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);
+    new Button(m_controller2::getLeftBumper).whileHeld(new Intake_Command(m_intake,true), true);
+    new Button(m_controller2::getRightBumper).whileHeld(new Intake_Command(m_intake,false), true);
   }
 
   /**

@@ -7,18 +7,14 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-
-public class Intake_Command extends CommandBase 
+public class Intake_Deploy_Command extends CommandBase 
 {
-  Boolean in_1;
-  private final Intake m_intake;
-  public Intake_Command(Intake intake,Boolean in)
+  /** Creates a new Intake_Deploy. */
+  public Intake_Deploy_Command(Intake intake) 
   {
-    this.m_intake = intake;
-    addRequirements(intake);
-    in_1=in;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
-  
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
@@ -30,14 +26,6 @@ public class Intake_Command extends CommandBase
   @Override
   public void execute() 
   {
-    if (in_1)
-    {
-      m_intake.Intake_In();
-    }
-    else
-    {
-      m_intake.Intake_Out();
-    }
 
   }
 
@@ -45,7 +33,7 @@ public class Intake_Command extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    m_intake.Intake_Off();
+
   }
 
   // Returns true when the command should end.

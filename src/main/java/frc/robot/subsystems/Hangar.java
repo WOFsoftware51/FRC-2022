@@ -18,10 +18,10 @@ public class Hangar extends SubsystemBase
  {
   private final TalonSRX hangar_master =  new  TalonSRX(Constants.HANGAR_MASTER_MOTOR);
   private final TalonSRX hangar_follower =  new  TalonSRX(Constants.HANGAR_FOLLOWER_MOTOR);
-  private final DoubleSolenoid claw_1 = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 0, 1);
-  private final DoubleSolenoid claw_2 = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 2, 3);
-  private final DoubleSolenoid claw_3 = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 4, 5);
-  private final DoubleSolenoid claw_4 = new DoubleSolenoid(0, PneumaticsModuleType.CTREPCM, 6, 7);
+  private final DoubleSolenoid claw_1 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 0, 1);
+  private final DoubleSolenoid claw_2 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 2, 3);
+  private final DoubleSolenoid claw_3 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 4, 5);
+  private final DoubleSolenoid claw_4 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 6, 7);
   public DigitalInput uno_limitSwitch = new DigitalInput(0);
   public DigitalInput dos_limitSwitch = new DigitalInput(0);
   public boolean White_Claw_Release = false;

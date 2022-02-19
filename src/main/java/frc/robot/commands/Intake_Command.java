@@ -5,16 +5,12 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Hangar;
 
-public class Hangar_Abort_Command extends CommandBase 
+public class Intake_Command extends CommandBase 
 {
-  private final Hangar m_hangar;
-  /** Creates a new Hangar_Ready_Command. */
-  public Hangar_Abort_Command(Hangar hangar) 
+  /** Creates a new Intake_Command. */
+  public Intake_Command() 
   {
-    this.m_hangar = hangar;
-    addRequirements(hangar);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -22,27 +18,27 @@ public class Hangar_Abort_Command extends CommandBase
   @Override
   public void initialize() 
   {
-    m_hangar.hangar_off();
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    m_hangar.hangar_off();
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_hangar.hangar_off();
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
-  { 
+  {
     return false;
   }
 }

@@ -53,6 +53,9 @@ public final class Constants {
     public static final int HANGAR_MASTER_MOTOR = 5; //  Set front left module drive motor ID
     public static final int HANGAR_FOLLOWER_MOTOR = 6; //  Set front left module drive motor ID
     public static final int TRANSFER_ROLLER_MOTOR = 7;
+    public static final int Intake_Motor_1 = 8;
+    public static final int Intake_Motor_2 = 9;
+
     public static final int SHOOTER_MOTOR = 12; //  Set front left module drive motor ID
     public static final double SHOOTER_P = 0.08; //  Set front lefAt module drive motor ID
     public static final double SHOOTER_I = 0.0; //  Set front left module drive motor ID

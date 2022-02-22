@@ -22,8 +22,8 @@ public class Hangar extends SubsystemBase
   private final DoubleSolenoid claw_2 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 2, 3);
   private final DoubleSolenoid claw_3 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 4, 5);
   private final DoubleSolenoid claw_4 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 6, 7);
-  public DigitalInput uno_limitSwitch = new DigitalInput(0);
-  public DigitalInput dos_limitSwitch = new DigitalInput(0);
+  public DigitalInput uno_limitSwitch = new DigitalInput(9);
+  public DigitalInput dos_limitSwitch = new DigitalInput(8);
   public boolean White_Claw_Release = false;
 
 

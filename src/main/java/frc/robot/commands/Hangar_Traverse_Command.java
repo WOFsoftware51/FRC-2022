@@ -51,7 +51,7 @@ public class Hangar_Traverse_Command extends CommandBase
   public void end(boolean interrupted) 
   {
     m_hangar.hangar_off();
-    m_hangar.White_Claw_Release =  !m_hangar.White_Claw_Release;
+    m_hangar.White_Claw_Release =! m_hangar.White_Claw_Release;
   }
 
   // Returns true when the command should end.

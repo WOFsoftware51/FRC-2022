@@ -13,7 +13,7 @@ import frc.robot.Constants;
 /** Hte Falcon that runs the shooter wheel {@link TalonFX}. */
 public class Shooter extends SubsystemBase 
 {
-  private final  WPI_TalonFX _shooter =  new  WPI_TalonFX(Constants.SHOOTER_MOTOR);
+  private final  WPI_TalonFX _shooter =  new  WPI_TalonFX(Constants.SHOOTER_MOTOR, Constants.CANIVORE_NAME);
   private final  WPI_VictorSPX _transfer_roller =  new  WPI_VictorSPX(Constants.TRANSFER_ROLLER_MOTOR);
 
   public void shooter_init() 
@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase
   public void shooter_on() 
   {
     _shooter.set(ControlMode.Velocity,Constants.SPEED);
-    _transfer_roller.set(ControlMode.PercentOutput,0.5);
+    _transfer_roller.set(ControlMode.PercentOutput,-0.5);
     //_shooter.set(ControlMode.Velocity,11000);
 
   }

@@ -7,23 +7,28 @@ import com.ctre.phoenix.sensors.CANCoderStatusFrame;
 import com.swervedrivespecialties.swervelib.AbsoluteEncoder;
 import com.swervedrivespecialties.swervelib.AbsoluteEncoderFactory;
 
+import frc.robot.Constants;
+
 public class CanCoderFactoryBuilder {
     private Direction direction = Direction.COUNTER_CLOCKWISE;
     private int periodMilliseconds = 10;
 
-    public CanCoderFactoryBuilder withReadingUpdatePeriod(int periodMilliseconds) {
+    public CanCoderFactoryBuilder withReadingUpdatePeriod(int periodMilliseconds) 
+    {
         this.periodMilliseconds = periodMilliseconds;
         return this;
     }
 
-    public AbsoluteEncoderFactory<CanCoderAbsoluteConfiguration> build() {
+    public AbsoluteEncoderFactory<CanCoderAbsoluteConfiguration> build() 
+    {
         return configuration -> {
             CANCoderConfiguration config = new CANCoderConfiguration();
             config.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
             config.magnetOffsetDegrees = Math.toDegrees(configuration.getOffset());
             config.sensorDirection = direction == Direction.CLOCKWISE;
+            config.initializationStrategy = configuration.getInitStrategy();
 
-            CANCoder encoder = new CANCoder(configuration.getId());
+            CANCoder encoder = new CANCoder(configuration.getId(), Constants.CANIVORE_NAME);
             encoder.configAllSettings(config, 250);
 
             encoder.setStatusFramePeriod(CANCoderStatusFrame.SensorData, periodMilliseconds, 250);
@@ -32,10 +37,12 @@ public class CanCoderFactoryBuilder {
         };
     }
 
-    private static class EncoderImplementation implements AbsoluteEncoder {
+    private static class EncoderImplementation implements AbsoluteEncoder 
+    {
         private final CANCoder encoder;
 
-        private EncoderImplementation(CANCoder encoder) {
+        private EncoderImplementation(CANCoder encoder) 
+        {
             this.encoder = encoder;
         }
 
@@ -51,7 +58,8 @@ public class CanCoderFactoryBuilder {
         }
     }
 
-    public enum Direction {
+    public enum Direction 
+    {
         CLOCKWISE,
         COUNTER_CLOCKWISE
     }

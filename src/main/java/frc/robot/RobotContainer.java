@@ -4,18 +4,20 @@
 
 package frc.robot;
 
+import java.util.function.Supplier;
+
+import com.fasterxml.jackson.annotation.JsonFormat.Value;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.HangarCommand;
-import frc.robot.commands.Hangar_Abort_Command;
-import frc.robot.commands.Hangar_Ready_Command;
-import frc.robot.commands.Hangar_Release_Command;
-import frc.robot.commands.Hangar_Traverse_Command;
 import frc.robot.commands.Intake_Command;
+import frc.robot.commands.Intake_Deploy_Command;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
@@ -45,11 +47,10 @@ public class RobotContainer
         m_drivetrainSubsystem,
         () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
         () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-        () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND
-    ));
-    m_shooter.setDefaultCommand(new ShootCommand(m_shooter));
-    m_hangar.setDefaultCommand(new HangarCommand(m_hangar,() -> -modifyAxis(m_controller2.getLeftY())
-));
+        () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
+   // m_shooter.setDefaultCommand(new ShootCommand(m_shooter));
+    m_hangar.setDefaultCommand(new HangarCommand(m_hangar,() -> -modifyAxis(m_controller2.getLeftY())));
+    
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -62,16 +63,24 @@ public class RobotContainer
    */
   private void configureButtonBindings() 
   {
-    // Back button zeros the gyroscope
+    // Back button zeros the gyroscop
     new Button(m_controller::getBackButton).whenPressed(m_drivetrainSubsystem::zeroGyroscope);
-    new Button(m_controller::getAButton).whileHeld(m_shooter::shooter_on);
-    new Button(m_controller::getAButton).whenReleased(m_shooter::shooter_off);
-    new Button(m_controller2::getBButton).whenPressed(new Hangar_Ready_Command(m_hangar), true);
-    new Button(m_controller2::getYButton).whenPressed(new Hangar_Traverse_Command(m_hangar), true);
-    new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_Command(m_hangar), true);
-    new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);
+   // new Button(m_controller::getAButton).whileHeld(new ShootCommand(m_shooter));
+    new Button(()-> m_controller2.getRightTriggerAxis() > 0.80).whileHeld(new ShootCommand(m_shooter));
+   // new Button(m_controller2::g).whenPressed(m_hangar::claw1_open);
+    new Button(m_controller2::getBButton).whileHeld(m_hangar::claw1_close);
+    new Button(m_controller2::getYButton).whenPressed(m_hangar::claw2_close);
+    new Button(m_controller2::getXButton).whileHeld(m_hangar::claw1_open);    
+    new Button(m_controller2::getAButton).whenPressed(m_hangar::claw2_open);
+
+
+   // new Button(m_controller2::getBButton).whenPressed(new Hangar_Ready_Command(m_hangar), true);
+    //new Button(m_controller2::getYButton).whenPressed(new Hangar_Traverse_Command(m_hangar), true);
+    //new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_Command(m_hangar), true);
+    //new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);
     new Button(m_controller2::getLeftBumper).whileHeld(new Intake_Command(m_intake,true), true);
     new Button(m_controller2::getRightBumper).whileHeld(new Intake_Command(m_intake,false), true);
+    new Button(m_controller::getAButton).toggleWhenPressed(new Intake_Deploy_Command(m_intake));
   }
 
   /**
@@ -85,14 +94,20 @@ public class RobotContainer
     return new InstantCommand();
   }
 
-  private static double deadband(double value, double deadband) {
-    if (Math.abs(value) > deadband) {
+  private static double deadband(double value, double deadband) 
+  {
+    if (Math.abs(value) > deadband) 
+    {
       if (value > 0.0) {
         return (value - deadband) / (1.0 - deadband);
-      } else {
+      } 
+       else 
+      {
         return (value + deadband) / (1.0 - deadband);
       }
-    } else {
+    }
+     else 
+    {
       return 0.0;
     }
   }

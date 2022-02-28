@@ -32,10 +32,15 @@ public class ShootCommand extends CommandBase
   {
     SmartDashboard.putData("Shot Speed", s_chooser);
     s_chooser.setDefaultOption("2500",8533);
-    s_chooser.addOption("3000", 10240);
-    s_chooser.addOption("3500", 11947);
     s_chooser.addOption("4000", 13653);
+    s_chooser.addOption("4100", 13995);
+    s_chooser.addOption("4200", 14336);
+    s_chooser.addOption("4300", 14677);
+    s_chooser.addOption("4400", 15019);
     s_chooser.addOption("4500", 15360);
+    s_chooser.addOption("4600", 15701);
+    s_chooser.addOption("4700", 16043);
+    
     m_shooter.shooter_init();
   }
 
@@ -47,7 +52,10 @@ public class ShootCommand extends CommandBase
     SmartDashboard.putNumber("Speed", m_shooter.speed());
 
     Constants.SPEED = s_chooser.getSelected();
+    m_shooter.shooter_on();
 
+    //m_shooter.shooter_off();
+    //this.cancel();
   }
 
   // Called once the command ends or is interrupted.
@@ -59,8 +67,8 @@ public class ShootCommand extends CommandBase
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() 
+  {
     return false;
   }
-  
 }

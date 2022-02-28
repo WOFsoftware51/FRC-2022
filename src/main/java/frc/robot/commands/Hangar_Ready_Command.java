@@ -34,6 +34,8 @@ public class Hangar_Ready_Command extends CommandBase
   @Override
   public void execute() 
   {
+    m_hangar.claw1_latch();
+    m_hangar.claw3_latch();
     if (m_hangar.arm_encoder_position() > 678)//TODO FIX ENCODER VALUE
     {
       m_hangar.hangar_on(-Constants.HANGAR_SPEED);

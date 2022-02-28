@@ -37,6 +37,7 @@ public class Hangar_Release_Command extends CommandBase
       m_hangar.claw2_close();
 
     }
+    
     m_hangar.claw1_latch();
     m_hangar.claw3_latch();
   }
@@ -45,6 +46,9 @@ public class Hangar_Release_Command extends CommandBase
   @Override
   public void execute() 
   {
+    m_hangar.claw1_latch();
+    m_hangar.claw3_latch();
+
     if (m_hangar.arm_encoder_position() > (starting_encoder_position- 678))//TODO FIX ENCODER VALUE
     {
       m_hangar.hangar_on(Constants.HANGAR_SPEED);

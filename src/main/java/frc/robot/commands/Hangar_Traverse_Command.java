@@ -35,6 +35,9 @@ public class Hangar_Traverse_Command extends CommandBase
   @Override
   public void execute() 
   {
+    m_hangar.claw1_latch();
+    m_hangar.claw3_latch();
+    
     if (m_hangar.uno_limitSwitch.get() ^ m_hangar.dos_limitSwitch.get())
     {
       m_hangar.hangar_on(Constants.HANGAR_SPEED);

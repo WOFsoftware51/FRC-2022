@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase
 {
   private final  WPI_VictorSPX _Intake_1 =  new  WPI_VictorSPX(Constants.Intake_Motor_1);
   private final  WPI_VictorSPX _Intake_2 =  new  WPI_VictorSPX(Constants.Intake_Motor_2);
-  private final DoubleSolenoid Intake_Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 0, 1);
+  private final DoubleSolenoid Intake_Solenoid = new DoubleSolenoid(2, PneumaticsModuleType.CTREPCM, 6, 7);
 
   
   public void intake_init() 
@@ -32,8 +32,8 @@ public class Intake extends SubsystemBase
   /** Creates a new Intake. */
   public void Intake_In()
   {
-    _Intake_1.set(ControlMode.PercentOutput,0.5);
-    _Intake_2.set(ControlMode.PercentOutput,0.5);
+    _Intake_1.set(ControlMode.PercentOutput,1);
+    _Intake_2.set(ControlMode.PercentOutput,1);
   }
   public void Intake_Out()
   {

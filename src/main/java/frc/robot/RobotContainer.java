@@ -72,6 +72,10 @@ public class RobotContainer
     new Button(m_controller2::getYButton).whenPressed(m_hangar::claw2_close);
     new Button(m_controller2::getXButton).whileHeld(m_hangar::claw1_open);    
     new Button(m_controller2::getAButton).whenPressed(m_hangar::claw2_open);
+    new Button(m_controller::getBButton).whileHeld(m_hangar::claw3_close);
+    new Button(m_controller::getYButton).whenPressed(m_hangar::claw4_close);
+    new Button(m_controller::getXButton).whileHeld(m_hangar::claw3_open);    
+    new Button(m_controller::getAButton).whenPressed(m_hangar::claw4_open);
 
 
    // new Button(m_controller2::getBButton).whenPressed(new Hangar_Ready_Command(m_hangar), true);
@@ -80,7 +84,7 @@ public class RobotContainer
     //new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);
     new Button(m_controller2::getLeftBumper).whileHeld(new Intake_Command(m_intake,true), true);
     new Button(m_controller2::getRightBumper).whileHeld(new Intake_Command(m_intake,false), true);
-    new Button(m_controller::getAButton).toggleWhenPressed(new Intake_Deploy_Command(m_intake));
+    new Button(m_controller::getStartButton).toggleWhenPressed(new Intake_Deploy_Command(m_intake));
   }
 
   /**

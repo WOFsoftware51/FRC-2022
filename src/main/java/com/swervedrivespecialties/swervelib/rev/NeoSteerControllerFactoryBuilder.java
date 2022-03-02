@@ -1,9 +1,10 @@
 package com.swervedrivespecialties.swervelib.rev;
 
 import com.revrobotics.*;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.swervedrivespecialties.swervelib.*;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
+
+import static com.swervedrivespecialties.swervelib.rev.RevUtils.checkNeoError;
 
 public final class NeoSteerControllerFactoryBuilder {
     // PID configuration
@@ -65,30 +66,30 @@ public final class NeoSteerControllerFactoryBuilder {
             AbsoluteEncoder absoluteEncoder = encoderFactory.create(steerConfiguration.getEncoderConfiguration());
 
             CANSparkMax motor = new CANSparkMax(steerConfiguration.getMotorPort(), CANSparkMaxLowLevel.MotorType.kBrushless);
-            motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, 100);
-            motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, 20);
-            motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, 20);
-            motor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+            checkNeoError(motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus0, 100), "Failed to set periodic status frame 0 rate");
+            checkNeoError(motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus1, 20), "Failed to set periodic status frame 1 rate");
+            checkNeoError(motor.setPeriodicFramePeriod(CANSparkMaxLowLevel.PeriodicFrame.kStatus2, 20), "Failed to set periodic status frame 2 rate");
+            checkNeoError(motor.setIdleMode(CANSparkMax.IdleMode.kBrake), "Failed to set NEO idle mode");
             motor.setInverted(!moduleConfiguration.isSteerInverted());
             if (hasVoltageCompensation()) {
-                motor.enableVoltageCompensation(nominalVoltage);
+                checkNeoError(motor.enableVoltageCompensation(nominalVoltage), "Failed to enable voltage compensation");
             }
             if (hasCurrentLimit()) {
-                motor.setSmartCurrentLimit((int) Math.round(currentLimit));
+                checkNeoError(motor.setSmartCurrentLimit((int) Math.round(currentLimit)), "Failed to set NEO current limits");
             }
 
             RelativeEncoder integratedEncoder = motor.getEncoder();
-            integratedEncoder.setPositionConversionFactor(2.0 * Math.PI * moduleConfiguration.getSteerReduction());
-            integratedEncoder.setVelocityConversionFactor(2.0 * Math.PI * moduleConfiguration.getSteerReduction() / 60.0);
-            integratedEncoder.setPosition(absoluteEncoder.getAbsoluteAngle());
+            checkNeoError(integratedEncoder.setPositionConversionFactor(2.0 * Math.PI * moduleConfiguration.getSteerReduction()), "Failed to set NEO encoder conversion factor");
+            checkNeoError(integratedEncoder.setVelocityConversionFactor(2.0 * Math.PI * moduleConfiguration.getSteerReduction() / 60.0), "Failed to set NEO encoder conversion factor");
+            checkNeoError(integratedEncoder.setPosition(absoluteEncoder.getAbsoluteAngle()), "Failed to set NEO encoder position");
 
             SparkMaxPIDController controller = motor.getPIDController();
             if (hasPidConstants()) {
-                controller.setP(pidProportional);
-                controller.setI(pidIntegral);
-                controller.setD(pidDerivative);
+                checkNeoError(controller.setP(pidProportional), "Failed to set NEO PID proportional constant");
+                checkNeoError(controller.setI(pidIntegral), "Failed to set NEO PID integral constant");
+                checkNeoError(controller.setD(pidDerivative), "Failed to set NEO PID derivative constant");
             }
-            controller.setFeedbackDevice(integratedEncoder);
+            checkNeoError(controller.setFeedbackDevice(integratedEncoder), "Failed to set NEO PID feedback device");
 
             return new ControllerImplementation(motor, absoluteEncoder);
         }
@@ -153,7 +154,7 @@ public final class NeoSteerControllerFactoryBuilder {
 
             this.referenceAngleRadians = referenceAngleRadians;
 
-            controller.setReference(adjustedReferenceAngleRadians, ControlType.kPosition);
+            controller.setReference(adjustedReferenceAngleRadians, CANSparkMax.ControlType.kPosition);
         }
 
         @Override

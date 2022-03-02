@@ -23,7 +23,7 @@ public class Intake_Command extends CommandBase
   @Override
   public void initialize() 
   {
-    
+    m_intake.Intake_Deploy();    
   }
 
   // Called every time the scheduler runs while the command is scheduled.

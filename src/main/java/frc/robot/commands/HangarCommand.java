@@ -4,6 +4,8 @@
 
 package frc.robot.commands;
 import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Hangar;
 
@@ -34,6 +36,7 @@ public class HangarCommand extends CommandBase
   @Override
   public void execute() 
   {
+    SmartDashboard.putNumber("Hanger_Encoder", m_hangar.arm_encoder_position());
     m_hangar.hangar_on(m_translationXSupplier.getAsDouble());
   }
   // Called once the command ends or is interrupted.

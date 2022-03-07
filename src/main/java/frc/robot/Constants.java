@@ -28,7 +28,7 @@ public final class Constants
      */
     public static final double DRIVETRAIN_WHEELBASE_METERS = 0.5842; //  Measure and set wheelbase
 
-    //public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
+    public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
 
     public static final String CANIVORE_NAME = "CANivore";
 
@@ -50,23 +50,28 @@ public final class Constants
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 31; //  Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41; //  Set back right steer motor ID
     public static final int BACK_RIGHT_MODULE_STEER_ENCODER = 11; // FIXME Set back right steer encoder ID
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(780.); //Measure and set back right steer offset
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = -Math.toRadians(78.0); //Measure and set back right steer offset
 
     ///////51/////////////
-    public static final int HANGAR_MASTER_MOTOR = 5; //  Set front left module drive motor ID
-    public static final int HANGAR_FOLLOWER_MOTOR = 6; //  Set front left module drive motor ID
+    public static final int HANGAR_MASTER_MOTOR = 5; //  
+    public static final int HANGAR_FOLLOWER_MOTOR = 6; //  
     public static final int TRANSFER_ROLLER_MOTOR = 7;
     public static final int Intake_Motor_1 = 8;
     public static final int Intake_Motor_2 = 9;
 
-    public static final int SHOOTER_MOTOR = 12; //  Set front left module drive motor ID
-    public static final double SHOOTER_P = 0.08; //  Set front lefAt module drive motor ID
-    public static final double SHOOTER_I = 0.0; //  Set front left module drive motor ID
-    public static final double SHOOTER_D = 0.00; //  Set front left module drive motor ID
-    public static final double SHOOTER_F= 0.045; //  Set front left module drive motor ID
+    public static final int SHOOTER_MOTOR = 12; // 
+    
+    public static final double SHOOTER_P = 0.08; //  
+    public static final double SHOOTER_I = 0.0; //  
+    public static final double SHOOTER_D = 0.00; //  
+    public static final double SHOOTER_F= 0.049; // 
 
-    public static  double SPEED= 0.0; //  Set front left module drive motor ID
-    public static  double HANGAR_SPEED= 0.75;
+    public static  final double HANGAR_SPEED= 0.75;
+    public static final double DRIVE_SPEED = 0.6;
+    
+
+    public static final double AUTON_SHOT_SPEED = 15360;
+    
 
 }
 // 

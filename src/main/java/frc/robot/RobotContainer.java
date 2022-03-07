@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.HangarCommand;
+import frc.robot.commands.Hangar_Ready_Command;
 import frc.robot.commands.Intake_Command;
 import frc.robot.commands.Intake_Deploy_Command;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.Shoot_Auton;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
 import frc.robot.subsystems.Intake;
@@ -45,9 +47,9 @@ public class RobotContainer
     // Right stick X axis -> rotation
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
         m_drivetrainSubsystem,
-        () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-        () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND,
-        () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND));
+        () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.DRIVE_SPEED,
+        () -> -modifyAxis(m_controller.getLeftX()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.DRIVE_SPEED,
+        () -> -modifyAxis(m_controller.getRightX()) * DrivetrainSubsystem.MAX_ANGULAR_VELOCITY_RADIANS_PER_SECOND * Constants.DRIVE_SPEED ));
    // m_shooter.setDefaultCommand(new ShootCommand(m_shooter));
     m_hangar.setDefaultCommand(new HangarCommand(m_hangar,() -> -modifyAxis(m_controller2.getLeftY())));
     
@@ -70,15 +72,16 @@ public class RobotContainer
    // new Button(m_controller2::g).whenPressed(m_hangar::claw1_open);
     new Button(m_controller2::getBButton).whileHeld(m_hangar::claw1_close);
     new Button(m_controller2::getYButton).whenPressed(m_hangar::claw2_close);
-    new Button(m_controller2::getXButton).whileHeld(m_hangar::claw1_open);    
-    new Button(m_controller2::getAButton).whenPressed(m_hangar::claw2_open);
+    new Button(m_controller2::getAButton).whileHeld(m_hangar::claw1_open);    
+    new Button(m_controller2::getXButton).whenPressed(m_hangar::claw2_open);
     new Button(m_controller::getBButton).whileHeld(m_hangar::claw3_close);
     new Button(m_controller::getYButton).whenPressed(m_hangar::claw4_close);
-    new Button(m_controller::getXButton).whileHeld(m_hangar::claw3_open);    
-    new Button(m_controller::getAButton).whenPressed(m_hangar::claw4_open);
+    new Button(m_controller::getAButton).whileHeld(m_hangar::claw3_open);    
+    new Button(m_controller::getXButton).whenPressed(m_hangar::claw4_open);
 
+    new Button(m_controller2::getBackButton).whenPressed(new Shoot_Auton(m_shooter));
 
-   // new Button(m_controller2::getBButton).whenPressed(new Hangar_Ready_Command(m_hangar), true);
+    new Button(m_controller::getLeftBumper).whenPressed(new Hangar_Ready_Command(m_hangar), true);
     //new Button(m_controller2::getYButton).whenPressed(new Hangar_Traverse_Command(m_hangar), true);
     //new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_Command(m_hangar), true);
     //new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);

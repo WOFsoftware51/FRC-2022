@@ -45,79 +45,54 @@ public class Hangar extends SubsystemBase
   /** Releases the hatch. */
   public void hangar_off() 
   {
-
     hangar_master.set(ControlMode.PercentOutput,0);
   }
 
 
   public void claw1_close()
   {
-    if (uno_limitSwitch.get())
-    {
       claw_1.set(Value.kReverse);
-    }
   }
 
   public void claw2_close()
   {
-    if (uno_limitSwitch.get())
-    {
       claw_2.set(Value.kReverse);
-    }
   }
 
   public void claw3_close()
   {
-    if (uno_limitSwitch.get())
-    {
       claw_3.set(Value.kReverse);
-    }
   }
 
   public void claw4_close()
   {
-    if (uno_limitSwitch.get())
-    {
-      claw_4.set(Value.kReverse);
-    }
+    claw_4.set(Value.kReverse);
   }
 
   public void claw1_open()
   {
-    if (uno_limitSwitch.get())
-    {
-      claw_1.set(Value.kForward);
-    }
+    claw_1.set(Value.kForward);
   }
 
   public void claw2_open()
   {
-    if (uno_limitSwitch.get())
-    {
-      claw_2.set(Value.kForward);
-    }
+    claw_2.set(Value.kForward);
   }
 
   public void claw3_open()
   {
-    if (uno_limitSwitch.get())
-    {
-      claw_3.set(Value.kForward);
-    }
+    claw_3.set(Value.kForward);
   }
 
   public void claw4_open()
   {
-    if (uno_limitSwitch.get())
-    {
-      claw_4.set(Value.kForward);
-    }
+    claw_4.set(Value.kForward);
   }
 
 
   public void claw1_latch()
   {
-    if (uno_limitSwitch.get())
+    if (dos_limitSwitch.get())
     {
       claw_1.set(Value.kForward);
     }

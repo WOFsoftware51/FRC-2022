@@ -10,6 +10,7 @@ import frc.robot.subsystems.Hangar;
 
 public class Hangar_Ready_Command extends CommandBase 
 {
+  private Boolean EndCommand = false;
   private final Hangar m_hangar;
   /** Creates a new Hangar_Ready_Command. */
   public Hangar_Ready_Command(Hangar hangar) 
@@ -23,9 +24,10 @@ public class Hangar_Ready_Command extends CommandBase
   @Override
   public void initialize() 
   {
+    EndCommand = false;
     m_hangar.hangar_init();
-    m_hangar.claw1_latch();
-    m_hangar.claw3_latch();
+    m_hangar.claw1_open();
+    m_hangar.claw3_open();
     m_hangar.claw2_close();
     m_hangar.claw4_close();
   }
@@ -34,19 +36,34 @@ public class Hangar_Ready_Command extends CommandBase
   @Override
   public void execute() 
   {
-    m_hangar.claw1_latch();
-    m_hangar.claw3_latch();
-    if (m_hangar.arm_encoder_position() > 678)//TODO FIX ENCODER VALUE
+    if (!m_hangar.uno_limitSwitch.get())
     {
-      m_hangar.hangar_on(-Constants.HANGAR_SPEED);
+      m_hangar.claw1_close();
+    }
+    else
+    {
+      m_hangar.claw1_open();
+    }
+    if (!m_hangar.dos_limitSwitch.get())
+    {
+      m_hangar.claw3_close();
+    }
+    else
+    {
+      m_hangar.claw3_open();
+    }
+
+    if (m_hangar.arm_encoder_position() > -22000)//TODO FIX ENCODER VALUE
+    {
+      m_hangar.hangar_on(Constants.HANGAR_SPEED);
     }
     else
     {
       m_hangar.hangar_off();
     }
-    if (m_hangar.uno_limitSwitch.get())
+    if (!m_hangar.uno_limitSwitch.get())
     {
-      this.cancel();
+      EndCommand= true;
     }
   }
 
@@ -61,6 +78,6 @@ public class Hangar_Ready_Command extends CommandBase
   @Override
   public boolean isFinished() 
   { 
-    return false;
+    return EndCommand;
   }
 }

@@ -29,10 +29,10 @@ public class Shooter extends SubsystemBase
   }
 
   /* Grabs the hatch. */
-  public void shooter_on() 
+  public void shooter_on(double speed) 
   {
-    _shooter.set(ControlMode.Velocity,Constants.SPEED);
-    if(_shooter.getSelectedSensorVelocity() > Constants.SPEED - 1000)
+    _shooter.set(ControlMode.Velocity,speed);
+    if(_shooter.getSelectedSensorVelocity() > speed - 1000)
     {
       _transfer_roller.set(ControlMode.PercentOutput,-0.5);
     }

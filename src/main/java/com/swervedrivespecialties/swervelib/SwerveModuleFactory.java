@@ -47,6 +47,27 @@ public class SwerveModuleFactory<DriveConfiguration, SteerConfiguration> {
             this.steerController = steerController;
         }
 
+
+        @Override
+        public Double getDriveMotor() {
+            return driveController.getDriveMotor();
+        }
+
+        @Override
+        public void resetEncoder() 
+        {
+            driveController.resetEncoder();
+        }
+
+        @Override
+        public Object getSteerMotor() {
+            return steerController.getSteerMotor();
+        }
+
+        @Override
+        public AbsoluteEncoder getSteerEncoder() {
+            return steerController.getSteerEncoder();
+        }
         @Override
         public double getDriveVelocity() {
             return driveController.getStateVelocity();
@@ -56,6 +77,7 @@ public class SwerveModuleFactory<DriveConfiguration, SteerConfiguration> {
         public double getSteerAngle() {
             return steerController.getStateAngle();
         }
+
 
         @Override
         public void set(double driveVoltage, double steerAngle) {

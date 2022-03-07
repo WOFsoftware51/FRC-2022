@@ -97,6 +97,20 @@ public final class Falcon500DriveControllerFactoryBuilder {
             this.sensorVelocityCoefficient = sensorVelocityCoefficient;
         }
 
+
+        @Override
+        public Double getDriveMotor() 
+        {
+            return this.motor.getSelectedSensorPosition();
+        }
+
+        @Override
+        public void resetEncoder() 
+        {
+            this.motor.setSelectedSensorPosition(0.0);
+        }
+
+
         @Override
         public void setReferenceVoltage(double voltage) {
             motor.set(TalonFXControlMode.PercentOutput, voltage / nominalVoltage);

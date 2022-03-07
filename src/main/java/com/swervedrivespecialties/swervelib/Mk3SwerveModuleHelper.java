@@ -1,9 +1,7 @@
 package com.swervedrivespecialties.swervelib;
 
+import com.swervedrivespecialties.swervelib.rev.*;
 import com.swervedrivespecialties.swervelib.ctre.*;
-import com.swervedrivespecialties.swervelib.rev.NeoDriveControllerFactoryBuilder;
-import com.swervedrivespecialties.swervelib.rev.NeoSteerConfiguration;
-import com.swervedrivespecialties.swervelib.rev.NeoSteerControllerFactoryBuilder;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 
 public final class Mk3SwerveModuleHelper {

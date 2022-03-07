@@ -1,6 +1,15 @@
 package com.swervedrivespecialties.swervelib;
 
-public interface SwerveModule {
+public interface SwerveModule 
+{
+    Double getDriveMotor();
+
+    Object getSteerMotor();
+
+    AbsoluteEncoder getSteerEncoder();
+
+    void resetEncoder();
+    
     double getDriveVelocity();
 
     double getSteerAngle();

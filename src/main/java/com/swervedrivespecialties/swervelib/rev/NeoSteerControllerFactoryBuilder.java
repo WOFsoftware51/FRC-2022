@@ -116,6 +116,18 @@ public final class NeoSteerControllerFactoryBuilder {
             this.absoluteEncoder = absoluteEncoder;
         }
 
+        
+        @Override
+        public Object getSteerMotor() {
+            return this.motor;
+        }
+
+        @Override
+        public AbsoluteEncoder getSteerEncoder() {
+            return this.absoluteEncoder;
+        }
+
+
         @Override
         public double getReferenceAngle() {
             return referenceAngleRadians;

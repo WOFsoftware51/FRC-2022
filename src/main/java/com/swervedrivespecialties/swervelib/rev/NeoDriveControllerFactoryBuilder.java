@@ -66,13 +66,19 @@ public final class NeoDriveControllerFactoryBuilder {
         }
     }
 
-    private static class ControllerImplementation implements DriveController {
+    private static class ControllerImplementation implements DriveController 
+    {
         private final CANSparkMax motor;
         private final RelativeEncoder encoder;
 
         private ControllerImplementation(CANSparkMax motor, RelativeEncoder encoder) {
             this.motor = motor;
             this.encoder = encoder;
+        }
+
+        @Override
+        public Double getDriveMotor() {
+            return 0.0;
         }
 
         @Override
@@ -83,6 +89,11 @@ public final class NeoDriveControllerFactoryBuilder {
         @Override
         public double getStateVelocity() {
             return encoder.getVelocity();
+        }
+
+        @Override
+        public void resetEncoder() 
+        {            
         }
     }
 }

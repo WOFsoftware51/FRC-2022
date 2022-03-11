@@ -5,19 +5,17 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Hangar;
 
-public class Hangar_Traverse_Command extends CommandBase 
+public class Hangar_Release_2_Command extends CommandBase 
 {
   private final Hangar m_hangar;
-
-  /** Creates a new Hangar_Traverse_Command. */
-  public Hangar_Traverse_Command(Hangar hangar) 
+  private Boolean EndCommand = false;
+  /** Creates a new Hangar_Release_Command. */
+  public Hangar_Release_2_Command(Hangar hangar) 
   {
     this.m_hangar = hangar;
     addRequirements(hangar);
-
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,42 +23,32 @@ public class Hangar_Traverse_Command extends CommandBase
   @Override
   public void initialize() 
   {
-    m_hangar.claw1_latch();
-    m_hangar.claw3_latch();
-    m_hangar.claw2_close();
-    m_hangar.claw4_close();
+    if(m_hangar.Claw1_Closed && m_hangar.Claw2_Closed)
+    {
+      m_hangar.claw3_open();
+      m_hangar.claw4_open();
+    }
+  
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    m_hangar.claw1_latch();
-    m_hangar.claw3_latch();
-    
-    if (m_hangar.uno_limitSwitch.get() ^ m_hangar.dos_limitSwitch.get())
-    {
-      m_hangar.hangar_on(Constants.HANGAR_SPEED);
-    }
-    else if (m_hangar.uno_limitSwitch.get() && m_hangar.dos_limitSwitch.get())
-    {
-      m_hangar.hangar_off();
-      this.cancel();
-    }
+    EndCommand= true;
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_hangar.hangar_off();
-    m_hangar.White_Claw_Release =! m_hangar.White_Claw_Release;
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
   {
-    return false;
+    return EndCommand;
   }
 }

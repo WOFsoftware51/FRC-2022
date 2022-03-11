@@ -15,6 +15,7 @@ public class HangarCommand extends CommandBase
   /** Creates a new HangarCommand. */
   private final Hangar m_hangar;
   private final DoubleSupplier m_translationXSupplier;
+  private Double hangEncoder = 0.0;
 
   public HangarCommand(Hangar hangar,DoubleSupplier translationXSupplier)
   {
@@ -36,8 +37,18 @@ public class HangarCommand extends CommandBase
   @Override
   public void execute() 
   {
-    SmartDashboard.putNumber("Hanger_Encoder", m_hangar.arm_encoder_position());
+    hangEncoder = m_hangar.arm_encoder_position();
+    SmartDashboard.putNumber("Hanger_Encoder", hangEncoder);
     m_hangar.hangar_on(m_translationXSupplier.getAsDouble());
+    if(hangEncoder>20000 && hangEncoder<24000)
+    {
+      m_hangar.claw1_close();
+    }
+    if(hangEncoder>70000 && hangEncoder<74000)
+    {
+      m_hangar.claw3_close();
+    }
+
   }
   // Called once the command ends or is interrupted.
   @Override

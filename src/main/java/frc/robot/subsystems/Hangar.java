@@ -25,6 +25,10 @@ public class Hangar extends SubsystemBase
   public DigitalInput uno_limitSwitch = new DigitalInput(9);
   public DigitalInput dos_limitSwitch = new DigitalInput(8);
   public boolean White_Claw_Release = false;
+  public boolean Claw1_Closed = false;
+  public boolean Claw2_Closed = false;
+  public boolean Claw3_Closed = false;
+  public boolean Claw4_Closed = false;
 
 
   public void hangar_init() 
@@ -52,66 +56,49 @@ public class Hangar extends SubsystemBase
   public void claw1_close()
   {
       claw_1.set(Value.kReverse);
+      Claw1_Closed = true;
   }
 
   public void claw2_close()
   {
       claw_2.set(Value.kReverse);
+      Claw2_Closed = true;
   }
 
   public void claw3_close()
   {
       claw_3.set(Value.kReverse);
+      Claw3_Closed = true;
   }
 
   public void claw4_close()
   {
     claw_4.set(Value.kReverse);
+    Claw4_Closed = true;
   }
 
   public void claw1_open()
   {
     claw_1.set(Value.kForward);
+    Claw1_Closed = false;
   }
 
   public void claw2_open()
   {
     claw_2.set(Value.kForward);
+    Claw2_Closed = false;
   }
 
   public void claw3_open()
   {
     claw_3.set(Value.kForward);
+    Claw3_Closed = false;
   }
 
   public void claw4_open()
   {
     claw_4.set(Value.kForward);
-  }
-
-
-  public void claw1_latch()
-  {
-    if (dos_limitSwitch.get())
-    {
-      claw_1.set(Value.kForward);
-    }
-    else
-    {
-      claw_1.set(Value.kReverse);
-    }
-  }
-  
-  public void claw3_latch()
-  {
-    if (dos_limitSwitch.get())
-    {
-      claw_3.set(Value.kForward);
-    }
-    else
-    {
-      claw_3.set(Value.kReverse);
-    }
+    Claw4_Closed = false;
   }
   
   public double arm_encoder_position()

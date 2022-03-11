@@ -32,7 +32,7 @@ public class Shooter extends SubsystemBase
   public void shooter_on(double speed) 
   {
     _shooter.set(ControlMode.Velocity,speed);
-    if(_shooter.getSelectedSensorVelocity() > speed - 1000)
+    if(_shooter.getSelectedSensorVelocity() > speed - 500)
     {
       _transfer_roller.set(ControlMode.PercentOutput,-0.5);
     }

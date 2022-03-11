@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.Pigeon2;
-import com.ctre.phoenix.sensors.PigeonIMU;
 import com.swervedrivespecialties.swervelib.Mk4SwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SdsModuleConfigurations;
 import com.swervedrivespecialties.swervelib.SwerveModule;
@@ -19,9 +18,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-
-import com.kauailabs.navx.frc.*;
-import edu.wpi.first.wpilibj.SPI;
 
 import static frc.robot.Constants.*;
 
@@ -183,6 +179,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
     return Rotation2d.fromDegrees(m_pigeon.getYaw());
+  }
+
+    public Double getGyroscopeAngle() {
+        // FIXME Remove if you are using a Pigeon
+        return m_pigeon.getYaw();
+    }
+    
 
     // FIXME Uncomment if you are using a NavX
     //if (m_navx.isMagnetometerCalibrated()) {
@@ -193,7 +196,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 //
 //    // We have to invert the angle of the NavX so that rotating the robot counter-clockwise makes the angle increase.
     //return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
-  }
+  
 
   public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
@@ -210,7 +213,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
     m_backLeftModule.set(states[2].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[2].angle.getRadians());
     m_backRightModule.set(states[3].speedMetersPerSecond / MAX_VELOCITY_METERS_PER_SECOND * MAX_VOLTAGE, states[3].angle.getRadians());
     Distance = (Math.abs(m_frontLeftModule.getDriveMotor())+Math.abs(m_frontRightModule.getDriveMotor())+Math.abs(m_backLeftModule.getDriveMotor())+Math.abs(m_backRightModule.getDriveMotor()))/4.0;
-    Math.
     //m_frontLeftModule.get();
   }
 }

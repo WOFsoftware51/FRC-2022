@@ -61,7 +61,7 @@ public final class Constants
 
     public static final int SHOOTER_MOTOR = 12; // 
     
-    public static final double SHOOTER_P = 0.08; //  
+    public static final double SHOOTER_P = 0.4; //  
     public static final double SHOOTER_I = 0.0; //  
     public static final double SHOOTER_D = 0.00; //  
     public static final double SHOOTER_F= 0.049; // 

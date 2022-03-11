@@ -4,23 +4,23 @@
 
 package frc.robot;
 
-import java.util.function.Supplier;
-
-import com.fasterxml.jackson.annotation.JsonFormat.Value;
-
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.HangarCommand;
+import frc.robot.commands.Hangar_Abort_Command;
+import frc.robot.commands.Hangar_Grab_1_Command;
+import frc.robot.commands.Hangar_Grab_2_Command;
 import frc.robot.commands.Hangar_Ready_Command;
+import frc.robot.commands.Hangar_Release_1_Command;
+import frc.robot.commands.Hangar_Release_2_Command;
+import frc.robot.commands.Hangar_Release_Both_Command;
 import frc.robot.commands.Intake_Command;
 import frc.robot.commands.Intake_Deploy_Command;
+import frc.robot.commands.One_Ball_Auto;
 import frc.robot.commands.ShootCommand;
-import frc.robot.commands.Shoot_Auton;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
 import frc.robot.subsystems.Intake;
@@ -70,16 +70,15 @@ public class RobotContainer
    // new Button(m_controller::getAButton).whileHeld(new ShootCommand(m_shooter));
     new Button(()-> m_controller2.getRightTriggerAxis() > 0.80).whileHeld(new ShootCommand(m_shooter));
    // new Button(m_controller2::g).whenPressed(m_hangar::claw1_open);
-    new Button(m_controller2::getBButton).whileHeld(m_hangar::claw1_close);
-    new Button(m_controller2::getYButton).whenPressed(m_hangar::claw2_close);
-    new Button(m_controller2::getAButton).whileHeld(m_hangar::claw1_open);    
-    new Button(m_controller2::getXButton).whenPressed(m_hangar::claw2_open);
-    new Button(m_controller::getBButton).whileHeld(m_hangar::claw3_close);
-    new Button(m_controller::getYButton).whenPressed(m_hangar::claw4_close);
-    new Button(m_controller::getAButton).whileHeld(m_hangar::claw3_open);    
-    new Button(m_controller::getXButton).whenPressed(m_hangar::claw4_open);
+    new Button(m_controller2::getBButton).whenPressed(new Hangar_Grab_2_Command(m_hangar));
+    new Button(m_controller2::getYButton).whenPressed(new Hangar_Release_2_Command(m_hangar));
+    new Button(m_controller2::getAButton).whenPressed(new Hangar_Grab_1_Command(m_hangar));    
+    new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_1_Command(m_hangar));
+    new Button(m_controller2::getStartButtonPressed).whenPressed(new Hangar_Release_Both_Command(m_hangar));
 
-    new Button(m_controller2::getBackButton).whenPressed(new Shoot_Auton(m_shooter));
+    
+
+    //new Button(m_controller2::getBackButton).whenPressed(new Drive_Auton(m_drivetrainSubsystem, 0.3, 0.0, 0.0, 111111.11));
 
     new Button(m_controller::getLeftBumper).whenPressed(new Hangar_Ready_Command(m_hangar), true);
     //new Button(m_controller2::getYButton).whenPressed(new Hangar_Traverse_Command(m_hangar), true);
@@ -98,7 +97,7 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
-    return new InstantCommand();
+    return new One_Ball_Auto(m_shooter, m_drivetrainSubsystem);
   }
 
   private static double deadband(double value, double deadband) 

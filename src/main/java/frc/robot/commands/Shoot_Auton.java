@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 public class Shoot_Auton extends CommandBase 
 {
+  
   /** Creates a new ShootCommand. */
  
   private final Shooter m_shooter;
@@ -36,8 +36,8 @@ public class Shoot_Auton extends CommandBase
   public void execute() 
   {
     SmartDashboard.putNumber("Encoder", m_shooter.encoder());
-    SmartDashboard.putNumber("Speed", m_shooter.speed());
-
+    SmartDashboard.putNumber("Counter", shoot_counter);
+    shoot_counter++;
     m_shooter.shooter_on(Constants.AUTON_SHOT_SPEED);
 
     //m_shooter.shooter_off();
@@ -55,7 +55,7 @@ public class Shoot_Auton extends CommandBase
   @Override
   public boolean isFinished() 
   { 
-    if(shoot_counter>150) 
+    if(shoot_counter>=150) 
     { 
       return true;
     } 

@@ -38,7 +38,7 @@ public class Intake extends SubsystemBase
   public void Intake_Out()
   {
     _Intake_1.set(ControlMode.PercentOutput,-0.5);
-    _Intake_2.set(ControlMode.PercentOutput,0);
+    _Intake_2.set(ControlMode.PercentOutput,-0.5);
   }
   public void Intake_Off()
   {
@@ -49,11 +49,11 @@ public class Intake extends SubsystemBase
 
   public void Intake_Deploy()
   {
-    Intake_Solenoid.set(Value.kForward);
+    Intake_Solenoid.set(Value.kReverse);
   }
   public void Intake_Retract()
   {
-    Intake_Solenoid.set(Value.kReverse);
+    Intake_Solenoid.set(Value.kForward);
   }
   @Override
   public void periodic() 

@@ -21,6 +21,7 @@ import frc.robot.commands.Intake_Command;
 import frc.robot.commands.Intake_Deploy_Command;
 import frc.robot.commands.One_Ball_Auto;
 import frc.robot.commands.ShootCommand;
+import frc.robot.commands.ShootCommandLow;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
 import frc.robot.subsystems.Intake;
@@ -69,12 +70,13 @@ public class RobotContainer
     new Button(m_controller::getBackButton).whenPressed(m_drivetrainSubsystem::zeroGyroscope);
    // new Button(m_controller::getAButton).whileHeld(new ShootCommand(m_shooter));
     new Button(()-> m_controller2.getRightTriggerAxis() > 0.80).whileHeld(new ShootCommand(m_shooter));
+    new Button(()-> m_controller2.getLeftTriggerAxis() > 0.80).whileHeld(new ShootCommandLow(m_shooter));
    // new Button(m_controller2::g).whenPressed(m_hangar::claw1_open);
     new Button(m_controller2::getBButton).whenPressed(new Hangar_Grab_2_Command(m_hangar));
     new Button(m_controller2::getYButton).whenPressed(new Hangar_Release_2_Command(m_hangar));
     new Button(m_controller2::getAButton).whenPressed(new Hangar_Grab_1_Command(m_hangar));    
     new Button(m_controller2::getXButton).whenPressed(new Hangar_Release_1_Command(m_hangar));
-    new Button(m_controller2::getStartButtonPressed).whenPressed(new Hangar_Release_Both_Command(m_hangar));
+    new Button(m_controller2::getBackButton).whenPressed(new Hangar_Release_Both_Command(m_hangar));
 
     
 
@@ -86,7 +88,7 @@ public class RobotContainer
     //new Button(m_controller2::getAButton).whenPressed(new Hangar_Abort_Command(m_hangar), true);
     new Button(m_controller2::getLeftBumper).whileHeld(new Intake_Command(m_intake,true), true);
     new Button(m_controller2::getRightBumper).whileHeld(new Intake_Command(m_intake,false), true);
-    new Button(m_controller::getStartButton).toggleWhenPressed(new Intake_Deploy_Command(m_intake));
+    new Button(m_controller::getXButton).toggleWhenPressed(new Intake_Deploy_Command(m_intake));
   }
 
   /**

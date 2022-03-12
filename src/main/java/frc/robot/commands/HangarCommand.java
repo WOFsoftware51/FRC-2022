@@ -44,10 +44,6 @@ public class HangarCommand extends CommandBase
     {
       m_hangar.claw1_close();
     }
-    if(hangEncoder>70000 && hangEncoder<74000)
-    {
-      m_hangar.claw3_close();
-    }
 
   }
   // Called once the command ends or is interrupted.

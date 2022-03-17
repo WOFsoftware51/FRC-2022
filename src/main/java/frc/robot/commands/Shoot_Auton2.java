@@ -4,54 +4,58 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.Constants;
+import frc.robot.subsystems.Shooter;
 
-public class Intake_On_Auton extends CommandBase 
+public class Shoot_Auton2 extends CommandBase 
 {
-  //private Boolean EndCommand = false;
-  private final Intake m_intake;
-  private int intake_counter = 0; 
-  private int wait_length = 0; 
-
-
-  /** Creates a new Intake_Auton. */
-  public Intake_On_Auton(Intake intake, int wait) 
+  
+  /** Creates a new ShootCommand. */
+ 
+  private final Shooter m_shooter;
+  private int shoot_counter = 0; 
+  
+  public Shoot_Auton2(Shooter shooter)
   {
-    this.m_intake = intake;
-    wait_length = wait;
-    // Use addRequirements() here to declare subsystem dependencies.
+      this.m_shooter = shooter;
+      addRequirements(shooter);
   }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-    intake_counter = 0; 
-    m_intake.Intake_Deploy();
+    shoot_counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
-  {  
-    intake_counter++;
-    m_intake.Intake_In();
+  {
+    SmartDashboard.putNumber("Encoder", m_shooter.encoder());
+    SmartDashboard.putNumber("Counter", shoot_counter);
+    shoot_counter++;
+    m_shooter.shooter_on(Constants.AUTON_SHOT_SPEED);
+
+    //m_shooter.shooter_off();
+    //this.cancel();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_intake.Intake_Off();
-    intake_counter = 0; 
+    m_shooter.shooter_off();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
-  {
-    if(intake_counter>=wait_length) 
+  { 
+    if(shoot_counter>=150) 
     { 
       return true;
     } 

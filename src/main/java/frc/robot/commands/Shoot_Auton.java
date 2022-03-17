@@ -49,6 +49,8 @@ public class Shoot_Auton extends CommandBase
   public void end(boolean interrupted) 
   {
     m_shooter.shooter_off();
+    shoot_counter = 0;
+
   }
 
   // Returns true when the command should end.

@@ -19,6 +19,9 @@ public class One_Ball_Auto extends SequentialCommandGroup
   {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new Shoot_Auton(m_shooter), new Drive_Auton(m_drivetrain, 0.3, -0.1, 0.0, 111111.11));
+    addCommands(
+    new Shoot_Auton(m_shooter),
+    new Drive_Auton(m_drivetrain, 0.3, -0.1, 0.0, 111111.11)
+    );
   }
 }

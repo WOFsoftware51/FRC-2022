@@ -6,7 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.HangarCommand;
@@ -22,6 +25,8 @@ import frc.robot.commands.Intake_Deploy_Command;
 import frc.robot.commands.One_Ball_Auto;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShootCommandLow;
+import frc.robot.commands.Two_Ball_Auto;
+import frc.robot.commands.Two_Ball_Auto_Plus;
 import frc.robot.subsystems.DrivetrainSubsystem;
 import frc.robot.subsystems.Hangar;
 import frc.robot.subsystems.Intake;
@@ -38,6 +43,9 @@ public class RobotContainer
 
   private final XboxController m_controller = new XboxController(0);
   private final XboxController m_controller2 = new XboxController(1);
+  private final SendableChooser<Integer> s_chooser = new SendableChooser<>();
+  private final SendableChooser<Integer> a_chooser = new SendableChooser<>();
+
 
   public RobotContainer() 
   {
@@ -46,6 +54,28 @@ public class RobotContainer
     // Left stick Y axis -> forward and backwards movement
     // Left stick X axis s-> left and right movement
     // Right stick X axis -> rotation
+
+    SmartDashboard.putData("Shot Speed", s_chooser);
+    //s_chooser.setDefaultOption("4500",15360);
+    s_chooser.setDefaultOption("3000",8750);
+    s_chooser.addOption("Bumper", 7500);
+    s_chooser.addOption("4100", 13995);
+    s_chooser.addOption("4200", 14336);
+    s_chooser.addOption("4300", 14677);
+    s_chooser.addOption("4400", 15019);
+    s_chooser.addOption("4600", 15701);
+    s_chooser.addOption("4700", 16043);
+
+    SmartDashboard.putData("Auton", a_chooser);
+
+    a_chooser.setDefaultOption("One Ball", 1);
+    a_chooser.addOption("Two Ball", 2);
+    a_chooser.addOption("Two ball Plus", 3);
+
+    a_chooser.addOption("Sit", 9);
+
+
+
     m_drivetrainSubsystem.setDefaultCommand(new DefaultDriveCommand(
         m_drivetrainSubsystem,
         () -> -modifyAxis(m_controller.getLeftY()) * DrivetrainSubsystem.MAX_VELOCITY_METERS_PER_SECOND * Constants.DRIVE_SPEED,
@@ -69,7 +99,7 @@ public class RobotContainer
     // Back button zeros the gyroscop
     new Button(m_controller::getBackButton).whenPressed(m_drivetrainSubsystem::zeroGyroscope);
    // new Button(m_controller::getAButton).whileHeld(new ShootCommand(m_shooter));
-    new Button(()-> m_controller2.getRightTriggerAxis() > 0.80).whileHeld(new ShootCommand(m_shooter));
+    new Button(()-> m_controller2.getRightTriggerAxis() > 0.80).whileHeld(new ShootCommand(m_shooter,s_chooser.getSelected()));
     new Button(()-> m_controller2.getLeftTriggerAxis() > 0.80).whileHeld(new ShootCommandLow(m_shooter));
    // new Button(m_controller2::g).whenPressed(m_hangar::claw1_open);
     new Button(m_controller2::getBButton).whenPressed(new Hangar_Grab_2_Command(m_hangar));
@@ -99,6 +129,16 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An ExampleCommand will run in autonomous
+    switch (a_chooser.getSelected()) {
+        case 1: return new One_Ball_Auto(m_shooter, m_drivetrainSubsystem);
+        case 2: return new Two_Ball_Auto(m_shooter, m_intake, m_drivetrainSubsystem);
+        case 3: return new Two_Ball_Auto_Plus(m_shooter, m_intake, m_drivetrainSubsystem);
+        case 9: return new InstantCommand();
+        
+    
+      default:
+        break;
+    }
     return new One_Ball_Auto(m_shooter, m_drivetrainSubsystem);
   }
 

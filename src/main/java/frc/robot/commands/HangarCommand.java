@@ -40,7 +40,7 @@ public class HangarCommand extends CommandBase
     hangEncoder = m_hangar.arm_encoder_position();
     SmartDashboard.putNumber("Hanger_Encoder", hangEncoder);
     m_hangar.hangar_on(m_translationXSupplier.getAsDouble());
-    if(hangEncoder>20000 && hangEncoder<24000)
+    if(hangEncoder>30000 && hangEncoder<35000)
     {
       m_hangar.claw1_close();
     }

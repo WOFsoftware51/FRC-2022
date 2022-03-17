@@ -17,18 +17,20 @@ public class ShootCommand extends CommandBase
   
    
   private final Shooter m_shooter;
-  private final SendableChooser<Integer> s_chooser = new SendableChooser<>();
-  public ShootCommand(Shooter shooter)
+  //private final SendableChooser<Integer> s_chooser = new SendableChooser<>();
+  public ShootCommand(Shooter shooter, Integer shotSpeed)
 
   {
       this.m_shooter = shooter;
       addRequirements(shooter);
+      speedShoot = shotSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
+    /*
     SmartDashboard.putData("Shot Speed", s_chooser);
     s_chooser.setDefaultOption("4500",15360);
     s_chooser.addOption("Bumper", 7500);
@@ -38,7 +40,7 @@ public class ShootCommand extends CommandBase
     s_chooser.addOption("4400", 15019);
     s_chooser.addOption("4600", 15701);
     s_chooser.addOption("4700", 16043);
-    
+    */
     m_shooter.shooter_init();
   }
 
@@ -49,7 +51,7 @@ public class ShootCommand extends CommandBase
     SmartDashboard.putNumber("Encoder", m_shooter.encoder());
     SmartDashboard.putNumber("Speed", m_shooter.speed());
 
-    speedShoot = s_chooser.getSelected();
+    //speedShoot = s_chooser.getSelected();
     m_shooter.shooter_on(speedShoot);
 
     //m_shooter.shooter_off();

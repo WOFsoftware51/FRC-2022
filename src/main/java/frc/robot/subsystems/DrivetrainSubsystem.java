@@ -16,8 +16,11 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import edu.wpi.first.networktables.NetworkTableInstance;
+
 
 import static frc.robot.Constants.*;
 
@@ -28,7 +31,12 @@ public class DrivetrainSubsystem extends SubsystemBase {
    * This can be reduced to cap the robot's maximum speed. Typically, this is useful during initial testing of the robot.
    */
   public static final double MAX_VOLTAGE = 10.0;
-  public double Distance = 0;
+  public double Distance = 0.0;
+  public double SpeedModifier = Constants.DRIVE_SPEED;  
+  public Boolean Aim;
+  public Double tv = 0.0;
+  public Double tx = 0.0; 
+  
   // FIXME Measure the drivetrain's maximum velocity or calculate the theoretical.
   //  The formula for calculating the theoretical maximum velocity is:
   //   <Motor free speed RPM> / 60 * <Drive reduction> * <Wheel diameter meters> * pi
@@ -80,6 +88,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule m_backRightModule;
 
   private ChassisSpeeds m_chassisSpeeds = new ChassisSpeeds(0.0, 0.0, 0.0);
+
 
   public DrivetrainSubsystem() 
   {
@@ -169,12 +178,42 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //m_navx.zeroYaw();
   }
 
+
+  public void setGyroscope(double angle) {
+        // FIXME Remove if you are using a Pigeon
+            m_pigeon.setYaw(angle);
+    
+        // FIXME Uncomment if you are using a NavX
+        //m_navx.zeroYaw();
+      }
   public void zeroDriveEncoders() {
         m_frontLeftModule.resetEncoder();
         m_frontRightModule.resetEncoder();
         m_backLeftModule.resetEncoder();
         m_backRightModule.resetEncoder();
       }
+
+      public void BoostOn() 
+      {
+        SpeedModifier = 1.0;
+      }
+
+      public void BoostOff() 
+      {
+        SpeedModifier = Constants.DRIVE_SPEED;
+      }
+      
+      public void AIMOn() 
+      {
+        Aim = true;
+      }
+
+      public void AIMOff() 
+      {
+        Aim = false;
+      }
+
+
 
   public Rotation2d getGyroscopeRotation() {
     // FIXME Remove if you are using a Pigeon
@@ -183,6 +222,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     public Double getGyroscopeAngle() {
         // FIXME Remove if you are using a Pigeon
+        SmartDashboard.putNumber("Gyro", m_pigeon.getYaw());
         return m_pigeon.getYaw();
     }
     
@@ -205,6 +245,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() 
   {
+
+        tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+        tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
+
     SwerveModuleState[] states = m_kinematics.toSwerveModuleStates(m_chassisSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(states, MAX_VELOCITY_METERS_PER_SECOND);
 

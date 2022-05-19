@@ -35,7 +35,7 @@ public final class Constants
     public static final int FRONT_LEFT_MODULE_DRIVE_MOTOR = 32; //  Set front left module drive motor ID
     public static final int FRONT_LEFT_MODULE_STEER_MOTOR = 42; //  Set front left module steer motor ID
     public static final int FRONT_LEFT_MODULE_STEER_ENCODER = 12; // FIXME Set front left steer encoder ID
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(24.0); //  Measure and set front left steer offset
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(37.0 + 180.0); //  Me
 
     public static final int FRONT_RIGHT_MODULE_DRIVE_MOTOR = 34; //  Set front right drive motor ID
     public static final int FRONT_RIGHT_MODULE_STEER_MOTOR = 44; //  Set front right steer motor ID
@@ -45,7 +45,7 @@ public final class Constants
     public static final int BACK_LEFT_MODULE_DRIVE_MOTOR = 33;//  Set back left drive motor ID
     public static final int BACK_LEFT_MODULE_STEER_MOTOR = 43; //  Set back left steer motor ID
     public static final int BACK_LEFT_MODULE_STEER_ENCODER = 13; // FIXME Set back left steer encoder ID
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(124.6); //  Measure and set back left steer offset
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = -Math.toRadians(114.6 + 180.0); //  Measure and set back left steer offset
 
     public static final int BACK_RIGHT_MODULE_DRIVE_MOTOR = 31; //  Set back right drive motor ID
     public static final int BACK_RIGHT_MODULE_STEER_MOTOR = 41; //  Set back right steer motor ID
@@ -60,18 +60,31 @@ public final class Constants
     public static final int Intake_Motor_2 = 9;
 
     public static final int SHOOTER_MOTOR = 12; // 
-    
-    public static final double SHOOTER_P = 0.4; //  
+
+    public static final double SHOOTER_P = 0.3; //  
     public static final double SHOOTER_I = 0.0; //  
-    public static final double SHOOTER_D = 0.00; //  
-    public static final double SHOOTER_F= 0.049; // 
+    public static final double SHOOTER_D = 0.003; //  
+    public static final double SHOOTER_F= 0.051; // 
+
+    public static final int SHOOTER_MOTOR_2 = 13; //
+
+    public static final double SHOOTER_2_P = 0.15; //  
+    public static final double SHOOTER_2_I = 0.0; //  
+    public static final double SHOOTER_2_D = 0.0015; //  
+    public static final double SHOOTER_2_F= 0.051; // 
+
+    public static final double AIM_P =  0.012; //  
+    public static final double AIM_I = 0.0; //  
+    public static final double AIM_D = 0.0; //  
 
     public static  final double HANGAR_SPEED= 0.75;
     public static final double DRIVE_SPEED = 0.6;
     
 
-    public static final double AUTON_SHOT_SPEED = 15360;
+    public static final double AUTON_SHOT_SPEED = 6826;
     
+    public static final double SHOOT_RATIO = 1.3;    //1.5
+   // public static final double SHOOT_RATIO = 3.5;
 
 }
 // 

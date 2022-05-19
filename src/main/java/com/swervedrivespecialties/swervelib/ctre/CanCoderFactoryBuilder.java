@@ -29,6 +29,7 @@ public class CanCoderFactoryBuilder {
             config.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
             config.magnetOffsetDegrees = Math.toDegrees(configuration.getOffset());
             config.sensorDirection = direction == Direction.CLOCKWISE;
+            config.initializationStrategy = configuration.getInitStrategy();
 
             CANCoder encoder = new CANCoder(configuration.getId(), Constants.CANIVORE_NAME);
             CtreUtils.checkCtreError(encoder.configAllSettings(config, 250), "Failed to configure CANCoder");

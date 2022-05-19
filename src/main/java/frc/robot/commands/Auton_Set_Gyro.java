@@ -1,35 +1,33 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DrivetrainSubsystem;
-import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //import java.util.function.Double;
 
-public class Auton_Intialize extends CommandBase 
+public class Auton_Set_Gyro extends CommandBase 
 {
   
     //private final Drive_Auton drivetrain;
     private int init_counter = 0; 
+    private double m_angle;
 
     private final DrivetrainSubsystem m_drivetrainSubsystem;
-    private final Intake m_intake;
 
     
 
-    public Auton_Intialize(DrivetrainSubsystem drivetrainSubsystem, Intake intake)
+    public Auton_Set_Gyro(DrivetrainSubsystem drivetrainSubsystem, double angle)
       {
+        this.m_angle = angle;
         this.m_drivetrainSubsystem = drivetrainSubsystem;
-        this.m_intake = intake;
         addRequirements(m_drivetrainSubsystem);
-        addRequirements(m_intake);
       }
 
       @Override
       public void initialize() 
       {
         
-        m_drivetrainSubsystem.zeroGyroscope();
+        m_drivetrainSubsystem.setGyroscope(m_angle);
         m_drivetrainSubsystem.zeroDriveEncoders();
         init_counter = 0; 
       }
@@ -38,8 +36,6 @@ public class Auton_Intialize extends CommandBase
     public void execute() 
     {
       init_counter++; 
-      m_intake.Intake_Out();
-        //rotationPercent = 0;
     }
        
 
@@ -48,8 +44,7 @@ public class Auton_Intialize extends CommandBase
     public void end(boolean interrupted) 
     {
       m_drivetrainSubsystem.zeroDriveEncoders();
-      m_drivetrainSubsystem.zeroGyroscope();
-      m_intake.Intake_Off();
+      m_drivetrainSubsystem.setGyroscope(m_angle);
 
         // Stop the drivetrain
     }
@@ -57,7 +52,7 @@ public class Auton_Intialize extends CommandBase
     @Override
     public boolean isFinished() 
     { 
-      if(init_counter>=25) 
+      if(init_counter>=5) 
       { 
         return true;
       } 

@@ -6,24 +6,29 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Shooter  ;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+
+import java.util.function.DoubleSupplier;
+
 
 public class ShootCommand extends CommandBase 
 {
   /** Creates a new ShootCommand. */
  
    public static double speedShoot;
+   public static double speedShoot2;
+   private final DoubleSupplier m_speedShoot;
+
   
    
   private final Shooter m_shooter;
-  //private final SendableChooser<Integer> s_chooser = new SendableChooser<>();
-  public ShootCommand(Shooter shooter, Integer shotSpeed)
+  public ShootCommand(Shooter shooter, DoubleSupplier shotSpeed)
 
   {
       this.m_shooter = shooter;
       addRequirements(shooter);
-      speedShoot = shotSpeed;
+      m_speedShoot = shotSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -48,11 +53,17 @@ public class ShootCommand extends CommandBase
   @Override
   public void execute() 
   {
+    speedShoot = m_speedShoot.getAsDouble();
+    speedShoot2 = speedShoot * Constants.SHOOT_RATIO;
     SmartDashboard.putNumber("Encoder", m_shooter.encoder());
     SmartDashboard.putNumber("Speed", m_shooter.speed());
+    SmartDashboard.putNumber("Speed2", m_shooter.speed_2());
+    SmartDashboard.putNumber("Speed_target", (speedShoot/2048.0)*600.0);
+    SmartDashboard.putNumber("Speed2_target",(speedShoot2/2048.0)*600.0);
 
     //speedShoot = s_chooser.getSelected();
-    m_shooter.shooter_on(speedShoot);
+    m_shooter.shooter_on(speedShoot, speedShoot2);
+   // m_shooter.shooter_on(speedShoot, speedShoot2);  //5120
 
     //m_shooter.shooter_off();
     //this.cancel();

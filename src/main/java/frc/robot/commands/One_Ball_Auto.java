@@ -4,9 +4,11 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.DrivetrainSubsystem;
-//import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 // NOTE:  Consider usin GetAbsolutePosition this command inline, rather than writing a subclass.  For more
@@ -15,13 +17,14 @@ import frc.robot.subsystems.Shooter;
 public class One_Ball_Auto extends SequentialCommandGroup 
 {
   /** Creates a new One_Ball_Auto. */
-  public One_Ball_Auto(Shooter m_shooter, DrivetrainSubsystem m_drivetrain) 
+  public One_Ball_Auto(Shooter m_shooter, DrivetrainSubsystem m_drivetrain, Intake m_intake) 
   {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new Shoot_Auton(m_shooter),
-    new Drive_Auton(m_drivetrain, 0.3, -0.1, 0.0, 111111.11)
+      new ParallelCommandGroup(new Auton_Intialize(m_drivetrain,m_intake),  new Shoot_Auton(m_shooter,60)),
+      new ParallelRaceGroup(new Intake_On_Auton(m_intake, 200), new Drive_Auton_Heading(m_drivetrain, 0.3, 0.0, 0.0, 94000.0, true)), //127-bot"
+      new Auton_Step(1)
     );
   }
 }

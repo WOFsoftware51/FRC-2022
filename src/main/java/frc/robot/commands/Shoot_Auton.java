@@ -13,14 +13,16 @@ public class Shoot_Auton extends CommandBase
 {
   
   /** Creates a new ShootCommand. */
- 
+
   private final Shooter m_shooter;
   private int shoot_counter = 0; 
+  private int length_counter = 0; 
   
-  public Shoot_Auton(Shooter shooter)
+  public Shoot_Auton(Shooter shooter, int time)
   {
       this.m_shooter = shooter;
       addRequirements(shooter);
+      length_counter = time;
   }
 
 
@@ -29,6 +31,7 @@ public class Shoot_Auton extends CommandBase
   public void initialize() 
   {
     shoot_counter = 0;
+    m_shooter.shooter_init();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -38,7 +41,7 @@ public class Shoot_Auton extends CommandBase
     SmartDashboard.putNumber("Encoder", m_shooter.encoder());
     SmartDashboard.putNumber("Counter", shoot_counter);
     shoot_counter++;
-    m_shooter.shooter_on(Constants.AUTON_SHOT_SPEED);
+    m_shooter.shooter_on(Constants.AUTON_SHOT_SPEED, Constants.AUTON_SHOT_SPEED*Constants.SHOOT_RATIO);
 
     //m_shooter.shooter_off();
     //this.cancel();
@@ -57,7 +60,7 @@ public class Shoot_Auton extends CommandBase
   @Override
   public boolean isFinished() 
   { 
-    if(shoot_counter>=150) 
+    if(shoot_counter>=length_counter) 
     { 
       return true;
     } 

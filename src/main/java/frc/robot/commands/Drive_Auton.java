@@ -4,7 +4,6 @@ import frc.robot.subsystems.DrivetrainSubsystem;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.Intake;
 
 
 //import java.util.function.Double;
@@ -55,6 +54,7 @@ public class Drive_Auton extends CommandBase
       {
         translationXPercent = 0;
         translationYPercent = 0;
+        rotationPercent = 0;
  
           EndCommand=true;
       }

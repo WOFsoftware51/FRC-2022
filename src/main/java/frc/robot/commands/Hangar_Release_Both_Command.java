@@ -27,6 +27,7 @@ public class Hangar_Release_Both_Command extends CommandBase
       m_hangar.claw1_open();
       m_hangar.claw3_open();
       m_hangar.claw4_open();
+      m_hangar.reset_arm_encoder_position();
   
   }
 

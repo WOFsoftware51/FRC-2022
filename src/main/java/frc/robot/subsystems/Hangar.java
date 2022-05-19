@@ -4,7 +4,7 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+//import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -22,8 +22,8 @@ public class Hangar extends SubsystemBase
   private final DoubleSolenoid claw_2 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 2, 3);
   private final DoubleSolenoid claw_3 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 4, 5);
   private final DoubleSolenoid claw_4 = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 6, 7);
-  public DigitalInput uno_limitSwitch = new DigitalInput(9);
-  public DigitalInput dos_limitSwitch = new DigitalInput(8);
+//  public DigitalInput uno_limitSwitch = new DigitalInput(9);
+ // public DigitalInput dos_limitSwitch = new DigitalInput(8);
   public boolean White_Claw_Release = false;
   public boolean Claw1_Closed = false;
   public boolean Claw2_Closed = false;
@@ -52,9 +52,9 @@ public class Hangar extends SubsystemBase
     hangar_master.set(ControlMode.PercentOutput,0);
   }
 
-
+                       
   public void claw1_close()
-  {
+  {                        
       claw_1.set(Value.kReverse);
       Claw1_Closed = true;
   }
@@ -76,7 +76,7 @@ public class Hangar extends SubsystemBase
     claw_4.set(Value.kReverse);
     Claw4_Closed = true;
   }
-
+  
   public void claw1_open()
   {
     claw_1.set(Value.kForward);
@@ -106,4 +106,11 @@ public class Hangar extends SubsystemBase
     double arm_encoder = hangar_master.getSelectedSensorPosition();
     return arm_encoder;
   }
+
+  public void reset_arm_encoder_position()
+  {
+    hangar_master.setSelectedSensorPosition(0);
+
+  }
+
 }

@@ -6,31 +6,25 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 //import java.util.function.Double;
 
-public class Auton_Intialize extends CommandBase 
+public class Auton_Step extends CommandBase 
 {
   
     //private final Drive_Auton drivetrain;
     private int init_counter = 0; 
+    private int wait_length = 0;
 
-    private final DrivetrainSubsystem m_drivetrainSubsystem;
-    private final Intake m_intake;
 
     
 
-    public Auton_Intialize(DrivetrainSubsystem drivetrainSubsystem, Intake intake)
+    public Auton_Step(int wait)
       {
-        this.m_drivetrainSubsystem = drivetrainSubsystem;
-        this.m_intake = intake;
-        addRequirements(m_drivetrainSubsystem);
-        addRequirements(m_intake);
+        this.wait_length = wait;
+       
       }
 
       @Override
       public void initialize() 
       {
-        
-        m_drivetrainSubsystem.zeroGyroscope();
-        m_drivetrainSubsystem.zeroDriveEncoders();
         init_counter = 0; 
       }
 
@@ -38,7 +32,6 @@ public class Auton_Intialize extends CommandBase
     public void execute() 
     {
       init_counter++; 
-      m_intake.Intake_Out();
         //rotationPercent = 0;
     }
        
@@ -47,17 +40,14 @@ public class Auton_Intialize extends CommandBase
     @Override
     public void end(boolean interrupted) 
     {
-      m_drivetrainSubsystem.zeroDriveEncoders();
-      m_drivetrainSubsystem.zeroGyroscope();
-      m_intake.Intake_Off();
-
+      init_counter = 0; 
         // Stop the drivetrain
     }
 
     @Override
     public boolean isFinished() 
     { 
-      if(init_counter>=25) 
+      if(init_counter>=wait_length) 
       { 
         return true;
       } 

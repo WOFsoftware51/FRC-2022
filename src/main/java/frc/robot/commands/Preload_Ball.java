@@ -6,62 +6,60 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Shooter;
 
-public class Shoot_Auton2 extends CommandBase 
+public class Preload_Ball extends CommandBase 
 {
-  
   /** Creates a new ShootCommand. */
  
+   public static boolean ballLoaded;  
+   private Boolean EndCommand = false;
+   
   private final Shooter m_shooter;
-  private int shoot_counter = 0; 
-  
-  public Shoot_Auton2(Shooter shooter)
+  public Preload_Ball(Shooter shooter)
+
   {
       this.m_shooter = shooter;
       addRequirements(shooter);
   }
 
-
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-    shoot_counter = 0;
+    EndCommand = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    SmartDashboard.putNumber("Encoder", m_shooter.encoder());
-    SmartDashboard.putNumber("Counter", shoot_counter);
-    shoot_counter++;
-    m_shooter.shooter_on(Constants.AUTON_SHOT_SPEED);
 
-    //m_shooter.shooter_off();
-    //this.cancel();
+    //SmartDashboard.putData(m_shooter.ballSensor.get());
+    if(m_shooter.ballSensor.get())
+    {
+      EndCommand = true;
+      m_shooter.ball_loaded();
+
+    }
+    else
+    {
+      m_shooter.load_ball();
+    }
+    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.shooter_off();
+    m_shooter.ball_loaded();
   }
 
-  // Returns true when the command should end.
+  // Returns true when  the command should end.
   @Override
   public boolean isFinished() 
-  { 
-    if(shoot_counter>=150) 
-    { 
-      return true;
-    } 
-      else 
-    {
-     return false;
-    }
+  {
+    return EndCommand;
   }
 }

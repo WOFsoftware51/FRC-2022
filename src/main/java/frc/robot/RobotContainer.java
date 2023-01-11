@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.commands.DefaultDriveCommand;
 import frc.robot.commands.Drive_Auton_Heading;
 import frc.robot.commands.Five_Ball_Auton;
+import frc.robot.commands.Five_Ball_Auton_Far;
+import frc.robot.commands.Four_Ball_Auto_Far;
 import frc.robot.commands.HangarCommand;
 import frc.robot.commands.Hangar_Grab_1_Command;
 import frc.robot.commands.Hangar_Grab_2_Command;
@@ -30,6 +32,7 @@ import frc.robot.commands.ShootCommandLow;
 import frc.robot.commands.Shoot_Auton_Spit;
 import frc.robot.commands.Three_Ball_Auton;
 import frc.robot.commands.Two_Ball_Auto;
+import frc.robot.commands.Two_Ball_Auto_Far;
 import frc.robot.commands.Two_Ball_Auto_Plus;
 import frc.robot.commands.Two_One_Auton;
 import frc.robot.commands.Two_Two_Auton;
@@ -69,17 +72,23 @@ public class RobotContainer
     s_chooser.addOption("1700", 5803);
     s_chooser.addOption("1800", 6144);
     s_chooser.addOption("1900", 6485);
-    s_chooser.addOption("1925", 6570);
-    s_chooser.setDefaultOption("1950", 6655);
+    s_chooser.addOption("1950", 6655);
     s_chooser.addOption("1975", 6740);
     s_chooser.addOption("2000", 6826);
-    s_chooser.addOption("2100", 7168);
+    s_chooser.addOption("2100",7168);
+    s_chooser.addOption("2200",7509);
+    s_chooser.addOption("2300",7850);
+    s_chooser.addOption("2400",8182);
     s_chooser.addOption("2500",8533);
+    s_chooser.addOption("2600",8875);
     s_chooser.addOption("2700", 9216);
+    s_chooser.addOption("2725", 9301);
+    s_chooser.setDefaultOption("2750", 9387);
+    s_chooser.addOption("2775", 9472);
+    s_chooser.addOption("2800", 9557);
     s_chooser.addOption("2900", 9899);
-    s_chooser.addOption("3100", 105815);
-    s_chooser.addOption("4500", 15360);
-
+    s_chooser.addOption("3000", 10240);
+    s_chooser.addOption("3100", 10581);
 
 
     SmartDashboard.putData("Auton", a_chooser);
@@ -91,6 +100,12 @@ public class RobotContainer
     a_chooser.addOption("Hang 2 plus 1", 5);
     a_chooser.addOption("Hang 2 plus 2", 6);
     a_chooser.addOption("Three ball ", 7);
+    a_chooser.addOption("Far 2 ball ", 8);
+    a_chooser.addOption("Far 5 ball ", 10);
+    a_chooser.addOption("Far 4 ball ", 11);
+
+
+
 
     a_chooser.addOption("Sit", 9);
 
@@ -133,6 +148,9 @@ public class RobotContainer
     new Button(()-> m_controller.getRightTriggerAxis() > 0.80).whenPressed(m_drivetrainSubsystem::BoostOn);   
     new Button(()-> m_controller.getRightTriggerAxis() > 0.80).whenReleased(m_drivetrainSubsystem::BoostOff);
 
+    new Button(()-> m_controller.getLeftTriggerAxis() > 0.80).whenPressed(m_drivetrainSubsystem::AIMOn);   
+    new Button(()-> m_controller.getLeftTriggerAxis() > 0.80).whenReleased(m_drivetrainSubsystem::AIMOff);
+
     //new Button(m_controller2::getBackButton).whenPressed(new Drive_Auton(m_drivetrainSubsystem, 0.3, 0.0, 0.0, 111111.11));
 
     new Button(m_controller::getLeftBumper).whenPressed(new Hangar_Ready_Command(m_hangar), true);
@@ -163,7 +181,12 @@ public class RobotContainer
         case 5: return new Two_One_Auton(m_shooter, m_intake, m_drivetrainSubsystem);
         case 6: return new Two_Two_Auton(m_shooter, m_intake, m_drivetrainSubsystem);
         case 7: return new Three_Ball_Auton(m_shooter, m_intake, m_drivetrainSubsystem);
+        case 8: return new Two_Ball_Auto_Far(m_shooter, m_intake, m_drivetrainSubsystem);
         case 9: return new InstantCommand();
+        case 10: return new Five_Ball_Auton_Far(m_shooter, m_intake, m_drivetrainSubsystem);
+        case 11: return new Four_Ball_Auto_Far(m_shooter, m_intake, m_drivetrainSubsystem);
+
+
         
     
       default: return new One_Ball_Auto(m_shooter, m_drivetrainSubsystem, m_intake);

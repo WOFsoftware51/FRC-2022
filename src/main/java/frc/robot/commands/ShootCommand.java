@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Shooter  ;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 import java.util.function.DoubleSupplier;
 
@@ -16,12 +17,15 @@ public class ShootCommand extends CommandBase
 {
   /** Creates a new ShootCommand. */
  
+   public static double realSpeed;
    public static double speedShoot;
    public static double speedShoot2;
    private final DoubleSupplier m_speedShoot;
-
+   public Double tv = 0.0;
+   public Double ty = 0.0;
   
-   
+  
+  
   private final Shooter m_shooter;
   public ShootCommand(Shooter shooter, DoubleSupplier shotSpeed)
 
@@ -53,9 +57,16 @@ public class ShootCommand extends CommandBase
   @Override
   public void execute() 
   {
-    speedShoot = m_speedShoot.getAsDouble();
+    tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
+    ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
+
+    realSpeed = m_speedShoot.getAsDouble();
+    realSpeed = realSpeed-(ty*35);
+    speedShoot = realSpeed;
     speedShoot2 = speedShoot * Constants.SHOOT_RATIO;
     SmartDashboard.putNumber("Encoder", m_shooter.encoder());
+    SmartDashboard.putNumber("ty", ty);
+
     SmartDashboard.putNumber("Speed", m_shooter.speed());
     SmartDashboard.putNumber("Speed2", m_shooter.speed_2());
     SmartDashboard.putNumber("Speed_target", (speedShoot/2048.0)*600.0);

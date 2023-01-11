@@ -82,6 +82,7 @@ public final class Constants
     
 
     public static final double AUTON_SHOT_SPEED = 6826;
+    public static final double AUTON_SHOT_SPEED_FAR = 9387;
     
     public static final double SHOOT_RATIO = 1.3;    //1.5
    // public static final double SHOOT_RATIO = 3.5;

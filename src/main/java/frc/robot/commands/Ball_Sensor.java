@@ -6,28 +6,29 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter  ;
+import frc.robot.Constants;
+import frc.robot.subsystems.Shooter;
 
-public class ShootCommandLow extends CommandBase 
+public class Ball_Sensor extends CommandBase 
 {
-  /** Creates a new ShootCommand. */
- 
-   public static double speedShoot;
   
-   
-  private final Shooter m_shooter;
-  public ShootCommandLow(Shooter shooter)
+  /** Creates a new ShootCommand. */
 
+  private final Shooter m_shooter;
+
+  
+  public Ball_Sensor(Shooter shooter)
   {
       this.m_shooter = shooter;
       addRequirements(shooter);
+      
   }
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-
     m_shooter.shooter_init();
   }
 
@@ -35,11 +36,6 @@ public class ShootCommandLow extends CommandBase
   @Override
   public void execute() 
   {
-    SmartDashboard.putNumber("Encoder", m_shooter.encoder());
-    SmartDashboard.putNumber("Speed", m_shooter.speed());
-
-    m_shooter.shoot_low();
-
     //m_shooter.shooter_off();
     //this.cancel();
   }
@@ -48,34 +44,19 @@ public class ShootCommandLow extends CommandBase
   @Override
   public void end(boolean interrupted) 
   {
-    m_shooter.shooter_off();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() 
-  {
-    return false;
+  { 
+    if((m_shooter.ballSensor.get())) 
+    { 
+      return true;
+    } 
+      else 
+    {
+     return false;
+    }
   }
 }
-
-
-/*
-
-int x= Position of wheel 1
-
-int y= Position of wheel 2
-
-
-if(x>y)
-{
-  dcasfdfdv
-}
-else
-{
-  234
-}
-
-*/
-
-//yhjfjhgfmhgf

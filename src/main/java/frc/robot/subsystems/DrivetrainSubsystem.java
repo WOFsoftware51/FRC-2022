@@ -33,7 +33,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   public static final double MAX_VOLTAGE = 10.0;
   public double Distance = 0.0;
   public double SpeedModifier = Constants.DRIVE_SPEED;  
-  public Boolean Aim = false;
+  public Boolean Aim;
   public Double tv = 0.0;
   public Double tx = 0.0; 
   
@@ -203,25 +203,13 @@ public class DrivetrainSubsystem extends SubsystemBase {
         SpeedModifier = Constants.DRIVE_SPEED;
       }
       
-      public double getSpeed()
-      {
-        return m_frontRightModule.getDriveVelocity();
-      }
-
-      public double getAngle()
-      {
-        return Math.toDegrees(m_frontRightModule.getSteerAngle());
-      }
-
       public void AIMOn() 
       {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);  //aim
         Aim = true;
       }
 
       public void AIMOff() 
       {
-        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);  //drive
         Aim = false;
       }
 
@@ -250,14 +238,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
     //return Rotation2d.fromDegrees(360.0 - m_navx.getYaw());
   
 
-  public void drive(ChassisSpeeds chassisSpeeds) 
-  {
+  public void drive(ChassisSpeeds chassisSpeeds) {
     m_chassisSpeeds = chassisSpeeds;
   }
 
   @Override
   public void periodic() 
   {
+
         tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
         tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
 

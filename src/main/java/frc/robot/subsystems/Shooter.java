@@ -49,8 +49,6 @@ public class Shooter extends SubsystemBase
     _transfer_roller.set(ControlMode.PercentOutput, 0.2);
   }
 
-  
-
   public void load_ball()
   {
     _transfer_roller.set(ControlMode.PercentOutput, -0.3);

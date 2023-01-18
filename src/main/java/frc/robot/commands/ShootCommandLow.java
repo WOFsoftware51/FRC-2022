@@ -58,24 +58,3 @@ public class ShootCommandLow extends CommandBase
     return false;
   }
 }
-
-
-/*
-
-int x= Position of wheel 1
-
-int y= Position of wheel 2
-
-
-if(x>y)
-{
-  dcasfdfdv
-}
-else
-{
-  234
-}
-
-*/
-
-//yhjfjhgfmhgf
